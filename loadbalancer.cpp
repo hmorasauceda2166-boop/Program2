@@ -24,8 +24,8 @@ void loadbalancer::addRequest(request r)
 request loadbalancer::getRequest() {
    incTime();
    if (!requestQueue.empty()){
-      request r = requestQueue.front();     // queue
-      //request r = requestQueue.top();      // priority_queue, stack
+      //request r = requestQueue.front();     // queue
+      request r = requestQueue.top();      // priority_queue, stack
       requestQueue.pop();
       return r;
    }
