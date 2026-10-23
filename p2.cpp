@@ -10,7 +10,7 @@
 using namespace std;
 
 const int NUM_SERVERS = 5;
-static int ps = 0;			// the process ID incrementer, static so one copy persists
+static int ps = 0;
 
 request createRandomRequest()
 {
@@ -46,17 +46,20 @@ int main()
    webserver webarray[NUM_SERVERS];
    for (int i = 0; i < NUM_SERVERS; i++)
    {
-      webserver w( (char) i +65);
+      webserver w( (char) i + 65);
       webarray[i] = w;
       webarray[i].addRequest(lb.getRequest(), lb.getTime());
    }
+
    // loop
    while (lb.getTime() < 10000)
    {
       int currTime = lb.getTime();
       int size = lb.getSize();
       // check each webserver if it's done
-      if(webarray[currTime % NUM_SERVERS].isRequestDone(currTime)) {
+      if(webarray[currTime % NUM_SERVERS].isRequestDone(currTime))
+      {
+
          request r = webarray[currTime % NUM_SERVERS].getRequest();
          // print
          cout << "Finished at " << currTime << " " << webarray[currTime % NUM_SERVERS].getName();
@@ -67,8 +70,9 @@ int main()
          //then give it a new request
          webarray[currTime % NUM_SERVERS].addRequest(lb.getRequest(), currTime);
       }
-         // every random set of time, or get a new request
-      if (rand() % 10 == 0){
+      // every random set of time, or get a new request
+      if (rand() % 10 == 0)
+      {
          request r = (createRandomRequest());
          lb.addRequest(r);
       }
